@@ -1,5 +1,5 @@
 {
-  "name": "sveltekit-fishable",
+  "name": "@git-franckg/sveltekit-fishable",
   "version": "0.1.0",
   "scripts": {
     "dev": "vite dev",
