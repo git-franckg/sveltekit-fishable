@@ -1,8 +1,8 @@
 # sveltekit-fishable
 
-<span class="badge-npmversion"><a href="https://npmjs.org/package/badges" title="View this project on NPM"><img src="https://img.shields.io/npm/v/sveltekit-fishable.svg" alt="NPM version" /></a></span>
+<span class="badge-npmversion"><a href="https://npmjs.org/package/sveltekit-fishable" title="View this project on NPM"><img src="https://img.shields.io/npm/v/sveltekit-fishable.svg" alt="NPM version" /></a></span>
 
-<span class="badge-npmdownloads"><a href="https://npmjs.org/package/badges" title="View this project on NPM"><img src="https://img.shields.io/npm/dm/sveltekit-fishable.svg" alt="NPM downloads" /></a></span>
+<span class="badge-npmdownloads"><a href="https://npmjs.org/package/sveltekit-fishable" title="View this project on NPM"><img src="https://img.shields.io/npm/dm/sveltekit-fishable.svg" alt="NPM downloads" /></a></span>
 
 
 Fournit aux visiteurs un JWE (JWT encrypté) qui contient les informations des formulaires, le résultat de l'anti-bot ou encore la configuration de la boite rez (pour ne pas créer de sous-ndd mais plutôt ajouter du texte à la fin de l'URL).
