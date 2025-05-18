@@ -92,11 +92,8 @@ export const handle: Handle = async ({ event, resolve }) => {
     cookieName: 'sess_1c3b3r9',
     // $(head -c 16 </dev/urandom | base64)
     secretKeyBase64: 'WBCA7qlG8gJo8DzvCR/frA==',
-    // store() lis la valeur et handle() l'assigne
-    local: toStore(
-      () => event.locals.fish,
-      (newFish) => (event.locals.fish = newFish)
-    )
+    // store() lis la valeur
+    getLocal: () => event.locals.fish
   }));
   const fish = (event.locals.fish = await fisher.handle());
 
