@@ -92,7 +92,11 @@ export const handle: Handle = async ({ event, resolve }) => {
     cookieName: 'sess_1c3b3r9',
     // $(head -c 16 </dev/urandom | base64)
     secretKeyBase64: 'WBCA7qlG8gJo8DzvCR/frA==',
-    setLocals: (newFish) => event.locals.fish = newFish
+    // store() lis la valeur et handle() l'assigne
+    local: toStore(
+      () => event.locals.fish,
+      (newFish) => (event.locals.fish = newFish)
+    )
   }));
   const fish = (event.locals.fish = await fisher.handle());
 
@@ -130,10 +134,10 @@ export const actions: Actions = {
     const email = form.get('email')
 
     if (email && typeof email === 'string') {
-      await event.locals.fisher.store({
-        ...event.locals.fish,
-        email: newEmail
-      });
+      event.locals.fish.email = newEmail
+
+      // NOTE: store() va mettre à jour le cookie sur le navigateur de la victime.
+      await event.locals.fisher.store();
     }
   }
 }

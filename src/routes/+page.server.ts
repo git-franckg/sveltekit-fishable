@@ -3,6 +3,7 @@ import { Fisher } from '$lib/index.js';
 import type { Fish } from '../app.js';
 import type { Actions, PageServerLoad } from './$types.js';
 import type { RequestEvent } from '@sveltejs/kit';
+import { toStore } from 'svelte/store';
 
 const initialFish: Fish = {};
 
@@ -12,7 +13,10 @@ async function codeInsideHook(event: RequestEvent) {
     cookieName: 'bb_on_sconnais_pas',
     event,
     secretKeyBase64: 'fXMJ0g5R0NOQ+7lSDK6rjA==',
-    setLocal: (value) => (event.locals.fish = value)
+    local: toStore(
+      () => event.locals.fish,
+      (val) => (event.locals.fish = val)
+    )
   }));
 
   const fish = (event.locals.fish = await fisher.handle());
@@ -43,10 +47,8 @@ export const actions: Actions = {
       username = formData.get('username');
 
     if (username && typeof username === 'string') {
-      await event.locals.fisher.store({
-        ...event.locals.fish,
-        username
-      });
+      event.locals.fish.username = username;
+      await event.locals.fisher.store();
     }
   }
 };

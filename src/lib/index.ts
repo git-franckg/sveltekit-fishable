@@ -3,6 +3,7 @@ import { decrypt, encrypt } from './encryption.js';
 import { GeoProviders } from './geo/index.js';
 import type { CountryIso3 } from '@git-franckg/countries';
 import type { RequestEvent } from '@sveltejs/kit';
+import { get, type Writable } from 'svelte/store';
 import { UAParser, type IResult as UserAgent } from 'ua-parser-js';
 import { v7 as uuidv7 } from 'uuid';
 
@@ -23,7 +24,7 @@ export interface FisherOptions<T> {
   building: boolean;
   cookieName: string;
   secretKeyBase64: string;
-  setLocal(value: Fishable<T>): void;
+  local: Writable<Fishable<T>>;
 }
 
 const COOKIE_OPTS = { path: '/', expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 400) };
@@ -62,7 +63,7 @@ export class Fisher<T> {
   }
 
   async handle(): Promise<Fishable<T>> {
-    const { event, cookieName, building, secretKeyBase64 } = this.opts;
+    const { event, cookieName, building, secretKeyBase64, local } = this.opts;
 
     if (building) {
       // Svelte fait du pre-rendering, c'est pas un vrai utilisateur et ça rendra le site plus rapide.
@@ -77,16 +78,15 @@ export class Fisher<T> {
     }
 
     const value = await this.createFishable();
-    await this.store(value);
+    local.set(value);
+    await this.store();
     return value;
   }
 
-  async store(value: Fishable<T>): Promise<void> {
-    const { cookieName, event, secretKeyBase64, setLocal } = this.opts;
+  async store(): Promise<void> {
+    const { cookieName, event, secretKeyBase64, local } = this.opts;
 
-    setLocal(value);
-
-    const jwe = await encrypt(JSON.stringify(value), base64ToBytes(secretKeyBase64));
+    const jwe = await encrypt(JSON.stringify(get(local)), base64ToBytes(secretKeyBase64));
     event.cookies.set(cookieName, jwe, COOKIE_OPTS);
   }
 }
