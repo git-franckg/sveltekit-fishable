@@ -100,6 +100,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cloudflare/workers-types@npm:^4.20250521.0":
+  version: 4.20250521.0
+  resolution: "@cloudflare/workers-types@npm:4.20250521.0"
+  checksum: 10c0/69465fd3486ade8267183b477b621264cc65250f7e307c9247187bd6ccb217f277ba8c2c565ff9be00838d684fa08bc21d8874ff2c11adff6136401ef997d866
+  languageName: node
+  linkType: hard
+
 "@esbuild/aix-ppc64@npm:0.25.4":
   version: 0.25.4
   resolution: "@esbuild/aix-ppc64@npm:0.25.4"
@@ -384,6 +391,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@git-franckg/sveltekit-fishable@workspace:."
   dependencies:
+    "@cloudflare/workers-types": "npm:^4.20250521.0"
     "@eslint/compat": "npm:^1.2.9"
     "@eslint/js": "npm:^9.27.0"
     "@git-franckg/countries": "npm:^1.2.0"
