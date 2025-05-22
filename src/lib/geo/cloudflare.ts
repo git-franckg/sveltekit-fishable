@@ -26,7 +26,8 @@ export const Cloudflare: GeoProvider = {
 
     if (!ip) throw new Error('Missing CF-Connecting-IP');
     else if (!countryIso2) throw new Error('Cloudflare "IP geolocation" is required.');
-    else if (!postalCode || !city) throw new Error('Cloudflare "Add visitor location headers" is required. Client IP: ' + ip);
+    // Le code postal et la ville sont pas toujours disponible.
+    // else if (!postalCode || !city) throw new Error('Cloudflare "Add visitor location headers" is required. Client IP: ' + ip);
 
     if (countryIso2 == 'T1') throw new Error('Client IP is Tor.');
     else if (!countryIso2) throw new Error('Client IP country is unknown.');

@@ -12,8 +12,8 @@ export type Fishable<T> = T & {
   geo: {
     ip: string;
     countryIso3: CountryIso3;
-    postalCode: string;
-    city: string;
+    postalCode?: string;
+    city?: string;
   };
   ua: UserAgent;
 };
